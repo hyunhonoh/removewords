@@ -7,7 +7,9 @@ exec_anaconda.exec_anaconda()
 
 import numpy as np
 import pandas as pd
-import re, os
+import re, os, sys
+import logging, logging.handlers
+
 ###
 ### Splunk logging setup
 ###
@@ -56,6 +58,7 @@ def removewords(results, settings):
         stack =  traceback.format_exc()
         results = splunk.Intersplunk.generateErrorResults("Error : Traceback: " + str(stack))
 
+logger = setup_logging()
 results, dummyresults, settings = splunk.Intersplunk.getOrganizedResults()
 results = removewords(results, settings)
 
